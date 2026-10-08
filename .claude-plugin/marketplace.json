@@ -1,0 +1,83 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "mikhin",
+  "description": "Yuri Mikhin's Claude Code plugins: hooks, skills and mods.",
+  "owner": {
+    "name": "Yuri Mikhin",
+    "url": "https://github.com/mikhin"
+  },
+  "plugins": [
+    {
+      "name": "shot-preview",
+      "source": {
+        "source": "github",
+        "repo": "mikhin/claude-shot-preview"
+      },
+      "description": "Draws a thumbnail under a Claude reply that names a screenshot path, with a click to open it",
+      "category": "productivity"
+    },
+    {
+      "name": "iphone-cam",
+      "source": {
+        "source": "github",
+        "repo": "mikhin/claude-iphone-cam"
+      },
+      "description": "Snap a frame from your iPhone camera above the prompt and send it to Claude with your next message",
+      "category": "productivity"
+    },
+    {
+      "name": "workstyle",
+      "source": {
+        "source": "github",
+        "repo": "mikhin/claude-skills"
+      },
+      "description": "Working-style skills: all-check, decisions, review, comms, stack, jev",
+      "category": "productivity"
+    },
+    {
+      "name": "agent-skills",
+      "source": {
+        "source": "github",
+        "repo": "mikhin/agent-skills"
+      },
+      "description": "Codex code review, multi-agent debate, multi-agent deep research, build/verify effort loop",
+      "category": "productivity"
+    },
+    {
+      "name": "tldr-length",
+      "source": {
+        "source": "github",
+        "repo": "mikhin/claude-tldr-length"
+      },
+      "description": "Sends a long answer back once to be rewritten as a tldr",
+      "category": "productivity"
+    },
+    {
+      "name": "lsp-first",
+      "source": {
+        "source": "github",
+        "repo": "mikhin/claude-lsp-first"
+      },
+      "description": "Sends grep for code symbols to the LSP tool",
+      "category": "productivity"
+    },
+    {
+      "name": "quota-budget",
+      "source": {
+        "source": "github",
+        "repo": "mikhin/claude-quota-budget"
+      },
+      "description": "Paces a weekly model quota at 1/7 per day",
+      "category": "productivity"
+    },
+    {
+      "name": "context-budget",
+      "source": {
+        "source": "github",
+        "repo": "mikhin/claude-context-budget"
+      },
+      "description": "Warns when session context grows past a threshold and offers a handoff",
+      "category": "productivity"
+    }
+  ]
+}
