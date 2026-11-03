@@ -1,6 +1,6 @@
 ---
 name: build
-description: Implement a spec in one pass at medium effort, then list the assumptions made so they can be reviewed. The spec is usually the output of grilling.
+description: Implement a spec in one pass at medium effort, then list the assumptions made so they can be reviewed.
 effort: medium
 disable-model-invocation: true
 argument-hint: "[spec, or a path to it]"

@@ -18,6 +18,6 @@ Security, hardware, ML and science gain the most from high effort.
 
 Higher effort fixes missed edge cases, not a wrong approach. If the approach is in doubt, say that instead of raising the level.
 
-For a task that needs a spec — a ticket, a feature — name the loop and its first command: `/grilling` if the spec is vague, then `/build`, the user's review, `/verify`. Don't run them yourself: their effort level applies only when the user types the command.
+For a task that needs a spec — a ticket, a feature — name the loop and its first command: `/build`, the user's review, `/verify`. Don't run them yourself: their effort level applies only when the user types the command.
 
 The user sets the level with `/effort <level>`; `/build` and `/verify` set their own.
