@@ -1,6 +1,6 @@
 {
   "name": "agent-skills",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "AI code review by OpenAI Codex, multi-agent debate, multi-agent deep research, an overbuild check and a build-medium, verify-high effort loop for Claude Code.",
   "author": {
     "name": "Yuri Mikhin",

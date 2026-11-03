@@ -14,9 +14,9 @@ Claude Code skills for getting a second opinion before you trust the first one �
 
 ## Effort loop
 
-`grill-me` → `/build` → review → `/verify`
+`grilling` → `/build` → review → `/verify`
 
-`grill-me` turns an idea into a spec, `/build` reads the code it touches, implements the spec in one pass and lists what it assumed, you review the assumptions, `/verify` hunts the edge cases. `/build` and `/verify` set their effort level themselves, for their own reply only and only when typed — a skill the model invokes on its own runs at the session level, so the loop doesn't chain itself; each step names the next command instead. Higher effort finds missed edge cases; a wrong approach is caught at review.
+`grilling` turns an idea into a spec, `/build` reads the code it touches, implements the spec in one pass and lists what it assumed, you review the assumptions, `/verify` hunts the edge cases. `/build` and `/verify` set their effort level themselves, for their own reply only and only when typed — a skill the model invokes on its own runs at the session level, so the loop doesn't chain itself; each step names the next command instead. Higher effort finds missed edge cases; a wrong approach is caught at review.
 
 ## Install
 
@@ -39,7 +39,7 @@ Skills then show up namespaced: `agent-skills:codex-code-review`, `agent-skills:
 
 - Claude Code with sub-agents for `multi-agent-debate` and `multi-agent-deep-research`
 - [Codex CLI](https://github.com/openai/codex) signed in for `codex-code-review`, optional for the fourth voice in `multi-agent-debate`
-- A `grill-me` skill for the effort loop, optional. The effort levels in `/build` and `/verify` apply in Claude Code only
+- A `grilling` skill for the effort loop, optional. The effort levels in `/build` and `/verify` apply in Claude Code only
 
 ## License
 
