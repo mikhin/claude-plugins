@@ -17,7 +17,6 @@ Skills for a senior frontend engineer who leads a project: how to decide, review
 | --- | --- |
 | [`review`](skills/review) | `/review`: an independent review at medium, every finding judged against the code, a merge verdict. Plus how bugs get handled: why didn't the tests catch it, failing test before fix, two rounds and stop. |
 | [`all-check`](skills/all-check) | Every check the project has except e2e, scoped to the files of the current PR, one line per check. |
-| [`jev`](skills/jev) | Score the changed files with Jev: bug risk, logic in components, missing tests. |
 | [`pending`](skills/pending) | Turn a thought about a PR into comments in a pending GitHub review. Never submits on its own. |
 | [`contract-impact`](skills/contract-impact) | What an API contract change forces in the frontend, or what a UI needs that the contract lacks. |
 | [`figma-diff`](skills/figma-diff) | A PR's UI against its Figma frames, state by state and at every viewport, with screenshots. |
@@ -81,7 +80,7 @@ The project skills hold no project names. They read your values from `~/.claude/
 - Report leaves out:
 ```
 
-Secrets stay out of it. `org-research` reads `LINEAR_API_KEY`, or runs `LINEAR_KEY_COMMAND`. `jev` reads `AI_GATEWAY_API_KEY`, or runs `JEV_KEY_COMMAND`. A command can be a secret manager read, for example `op read 'op://<vault>/<item>/credential'`.
+Secrets stay out of it. `org-research` reads `LINEAR_API_KEY`, or runs `LINEAR_KEY_COMMAND`. The command can be a secret manager read, for example `op read 'op://<vault>/<item>/credential'`.
 
 ## Always-on skills
 
