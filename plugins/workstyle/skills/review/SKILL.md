@@ -1,0 +1,85 @@
+---
+name: review
+description: Review the current branch, a PR or a commit in Claude Code or Codex — runs an independent review at medium, then judges every finding against the code (accepted / rejected / ticket / comment) and ends with a merge verdict. Also how bugs get investigated — the "why didn't the tests catch it" rule, test-before-fix order, anchored findings, what may block a merge, and when a review loop stops. Triggers — "/review", "review this", "findings", "what do you think of this review", "why is this flaky", "a bug in production", "another round".
+---
+
+# Reviewing and debugging
+
+## Running a review
+
+`/review [target]` with no findings in hand: choose the runner for the current host below. With no target, review the current branch against its PR base. Findings someone else brings (Copilot, Codex, a teammate) skip the run and go straight to arbitration. `medium` on purpose: `high` is built to keep finding and is a one-off audit, not a gate.
+
+### Claude Code
+
+Run the built-in `code-review` skill with the level first, then the target — `medium 120` for a PR, `medium` alone for the current branch against its PR base. A level after the target is ignored and the last typed level is reused; if the result opens with "Reusing <level>" and it is not `medium`, rerun before arbitrating. Alongside it, start Codex on the same target in the background, exactly as the Running section of `agent-skills:codex-code-review` says. Skip Codex in one line when that skill or the `codex` CLI is missing, or the diff is trivial. Wait for both lists, merge duplicates, then arbitrate them below as one list and close with a verdict. Tag each item `claude`, `codex` or `both`: the tags show whether Codex brings accepted findings that Claude missed.
+
+### Codex
+
+Use `spawn_agent` to delegate the review to one independent subagent with `fork_turns: "none"` and `reasoning_effort: "medium"`; inherit the model. Give it the repository path, exact target and base, applicable repository instructions, the review criteria from this skill, and the existing PR comments collected below. Ask for concrete findings anchored to file and line, their user-visible impact, and the test gap; an empty list is valid. The subagent only reads and reports: no edits, posting, or further delegation. Do not pass it the main agent's suspected findings or conclusions.
+
+Wait for its list, then the main agent verifies every finding against the code using the arbitration rules below and closes with a verdict. Tag findings `codex`. Do not invoke Claude's built-in `code-review` or start a nested Codex CLI review from this host. If subagents are unavailable, report that limitation and do the review and verification as separate passes; do not describe them as independent.
+
+## Read what is already said on the PR
+
+Before running or arbitrating anything on a PR, collect every comment already on it: review threads, resolved ones included, top-level comments, review bodies, the PR description, and the pending (unsubmitted) review. REST `pulls/<n>/comments` leaves the pending one out, so read the threads through GraphQL: `pullRequest(number:<n>){reviewThreads{nodes{isResolved comments{nodes{path line body author{login}}}}} reviews(states:PENDING){nodes{id comments{nodes{path line body}}}}}`. Hand that list to Codex as "already known, do not report". Before reporting a finding, match it against the list by meaning, not by line: one already raised is dropped, or noted as covered by that comment, never presented as new. A new comment goes into the existing pending review, not a second one.
+
+## Every bug ends with: why didn't the tests catch it?
+
+Answer it in the same message as the fix. Name the gap: no test on this path; a test that asserts shape, not content; a test that was skipped or never ran here; not testable at this layer, and here is the layer where it is. "Hard to test" is the start of an answer.
+
+## Reproduce, failing test, then fix
+
+A fix without the test that would have caught it is unfinished. If a class of bugs keeps escaping, the finding is about the harness, not the line. This is for bugs on a normal path; a comment-level race gets no fix and no test until someone hits it.
+
+## Findings
+
+Numbered, most severe first, one line each, anchored:
+
+```
+1. path/to/file.ts:120 — what is wrong and what it breaks for the user.
+```
+
+No categories, no summary on top, no severity theatre. An empty list is a fine result.
+
+## Arbitrating someone else's review
+
+A verdict per item, never a digest:
+
+```
+1. <item> — accepted: <what changes>
+2. <item> — rejected: <the fact that kills it, file:line>
+3. <item> — ticket: <one line why it waits>
+4. <item> — comment: <why no normal path reaches it>
+```
+
+Before accepting, try to refute it against the code: in one measured week 42 of 59 per-hunk LLM findings were refuted, and mutation testing was 4 for 4. Silent compliance with a wrong finding is worse than arguing with a right one.
+
+A fix that adds a guard — a ref, a counter, a queue, a stale-response check — is accepted only with the user action or contract response that reaches it. When the race sits inside an earlier guard, the fix removes the concurrency instead: lock the control while its write runs, or wait for the write. On #342 two rounds of guards grew a hook for two controls to 169 lines; the lock cut it to 90.
+
+## Scope: the ticket, plus one hop
+
+Fix in this PR what breaks the user on the ticket's path, and what the fix itself touches. Everything else a review finds — adjacent machinery, older debt, "while we're here" — goes to a Linear ticket with one line of why. A finding is not a reason to grow the diff; on #257 that turned 186 lines into 1600 across eight rounds.
+
+## What blocks a merge
+
+Only a finding that is both confident and reaches on a normal path. A race that needs impossible timing, a limit the system never sees, a style preference: comment, not blocker. The merge gate is CI, the touched specs and Stryker on the changed lines. "The review found nothing" is never the gate — a high-effort review is built to keep finding.
+
+## Every round ends with a verdict
+
+One line, one of three, then one sentence why:
+
+```
+🟢 merge — nothing blocking; N comments, none required.
+🟡 fix then merge — items 1–3 are required, the rest are comments.
+🔴 do not merge — <the one thing that breaks the user>.
+```
+
+No verdict, no review. A list without a decision leaves the decision to round N+1.
+
+## Round two is a delta
+
+Round two takes round one's list and reports it item by item: closed by <commit>, still open, or new. It prints `git diff --shortstat <base>` next to round one's; growth past 1.5× is a finding about the fixes. A round with only comment-level items ends 🟢 without offering to fix them. It does not re-review from scratch, and it does not raise again what was rejected with a fact. There is no round three: if round two finds as much as round one, the loop is not converging — merge on the gate above and ask what about the process let it through.
+
+## Flaky is a finding
+
+A test that passes on retry has a cause: a race, a shared port, leaked state, a real bug. Retries and `skip` are not fixes.

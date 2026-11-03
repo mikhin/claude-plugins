@@ -1,0 +1,30 @@
+{
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Second opinion",
+      "description": "A second opinion before you trust the first one.",
+      "skills": ["codex-code-review", "multi-agent-debate", "multi-agent-deep-research", "overbuild"]
+    },
+    {
+      "title": "Effort loop",
+      "description": "Build at medium effort, verify at high.",
+      "skills": ["effort-advisor", "build", "verify"]
+    },
+    {
+      "title": "How to work",
+      "description": "Decide, review and write to people.",
+      "skills": ["decisions", "stack", "comms", "review", "all-check", "jev", "pending", "trade-off"]
+    },
+    {
+      "title": "Project and team",
+      "description": "Releases, staging, the contract and the people.",
+      "skills": ["next", "report", "answer", "release-close", "pulse", "org-research", "prune", "stage-test", "contract-impact", "figma-diff"]
+    },
+    {
+      "title": "Personal tools",
+      "description": "Small helpers.",
+      "skills": ["desk", "buy", "talk", "pin"]
+    }
+  ]
+}

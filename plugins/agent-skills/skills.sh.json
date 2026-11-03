@@ -1,0 +1,15 @@
+{
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Skills",
+      "description": "A second opinion before you trust the first one.",
+      "skills": ["codex-code-review", "multi-agent-debate", "multi-agent-deep-research", "overbuild"]
+    },
+    {
+      "title": "Effort loop",
+      "description": "Build at medium effort, verify at high.",
+      "skills": ["effort-advisor", "build", "verify"]
+    }
+  ]
+}
