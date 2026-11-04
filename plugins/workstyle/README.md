@@ -20,7 +20,7 @@ Skills for a senior frontend engineer who leads a project: how to decide, review
 | [`pending`](skills/pending) | Turn a thought about a PR into comments in a pending GitHub review. Never submits on its own. |
 | [`contract-impact`](skills/contract-impact) | What an API contract change forces in the frontend, or what a UI needs that the contract lacks. |
 | [`figma-diff`](skills/figma-diff) | A PR's UI against its Figma frames, state by state and at every viewport, with screenshots. |
-| [`stage-test`](skills/stage-test) | Test a release on staging from its issues, mark each case, say whether prod is safe. |
+| [`stage-test`](skills/stage-test) | One subagent verifies deployments and saves a test plan; another tests staging and reports release blockers. |
 
 ## Project and team
 
