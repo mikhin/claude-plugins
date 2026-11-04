@@ -1,6 +1,6 @@
 ---
 name: comms
-description: How to write to people outside the code on the user's behalf — clients, product owners, teammates, product users. Draft first, never send; no blame, no hinted defects, no promises; one question instead of a pile of comments; copy-paste ready without quote marks. Triggers — "write to <person>", "reply to the client", "post a comment on the ticket", "send it in chat", "draft an answer".
+description: How to write to people outside the code on the user's behalf — clients, product owners, teammates, product users. Draft first, never send; no blame, no hinted defects, no promises; one question instead of a pile of comments; copy-paste ready without quote marks, a Slack draft goes straight to the clipboard. Triggers — "write to <person>", "message to <person>", "reply to the client", "post a comment on the ticket", "send it in chat", "draft an answer".
 ---
 
 # Writing to people
