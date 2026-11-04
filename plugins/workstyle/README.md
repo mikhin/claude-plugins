@@ -41,6 +41,7 @@ Skills for a senior frontend engineer who leads a project: how to decide, review
 | [`desk`](skills/desk) | Put the result of a session in your output folder, in the subfolder of its topic. |
 | [`buy`](skills/buy) | Pick one thing to buy: criteria, real reviews, original or copy, top three and one pick. |
 | [`talk`](skills/talk) | Toggle voice mode: replies spoken by macOS `say`. |
+| [`slack-copy`](skills/slack-copy) | Put a Slack message on the clipboard with working links and code formatting. |
 | [`pin`](skills/pin) | Pin a session so a shell function resumes it from any directory. |
 
 ## Install

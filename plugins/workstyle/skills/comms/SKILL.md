@@ -9,7 +9,7 @@ description: How to write to people outside the code on the user's behalf — cl
 
 Never send, post or reply on the user's behalf without showing the text. This holds for chat, tickets, PR comments, email and support answers alike. The user edits before it goes out — that is the point.
 
-Give the text ready to paste: no quote marks, no blockquote symbols, no "here's a draft:" wrapper, no markdown a chat will not render.
+Give the text ready to paste: no quote marks, no blockquote symbols, no "here's a draft:" wrapper, no markdown a chat will not render. A Slack draft also goes on the clipboard through `slack-copy`.
 
 ## Take no blame and hint at no defects
 
