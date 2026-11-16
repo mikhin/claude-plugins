@@ -52,4 +52,4 @@ A topic already covered by a PR, issue or message adds nothing. A topic only the
 
 One gap is one message, the shape of the last reports: one day is "update for today:", several days get a section per day, a full week is "update for this week:".
 
-Show the draft ready to paste. Never post it.
+Show the draft ready to paste and save it as a txt through `workstyle:desk`, never to the scratchpad. Never post it.
