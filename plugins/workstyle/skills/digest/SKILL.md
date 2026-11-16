@@ -1,6 +1,6 @@
 ---
 name: digest
-description: Catch up on the whole project for a period (default the last 7 days) — Slack channels, DMs and threads, Linear issues created or changed with their comments, GitHub PRs and reviews, past and coming meetings from the calendar, Zoom meeting summaries — grouped by topic into one dated, linked txt on the Desktop, with what waits for the user on top. Read-only. Triggers — "/digest", "/digest 14d", "catch me up", "what happened this week", "weekly digest", "what did I miss".
+description: Catch up on the whole project for a period (default the last 7 days) — Slack channels, DMs and threads, Linear issues created or changed with their comments, GitHub PRs and reviews, past and coming meetings from the calendar, Zoom meeting summaries — grouped by topic into one dated, linked HTML page on the Desktop, with what waits for the user on top. Read-only. Triggers — "/digest", "/digest 14d", "catch me up", "what happened this week", "weekly digest", "what did I miss".
 allowed-tools: Agent, Bash(gh:*), Bash(git:*), Bash(jq:*), Bash(date:*), Write, mcp__slack__conversations_history, mcp__slack__conversations_replies, mcp__slack__conversations_search_messages, mcp__linear__list_issues, mcp__linear__get_issue, mcp__linear__list_comments, mcp__linear__list_projects, mcp__linear__get_status_updates, mcp__linear__list_documents, mcp__linear__get_document, mcp__claude_ai_Google_Calendar__list_events, mcp__claude_ai_Zoom_for_Claude__search_meetings, mcp__claude_ai_Zoom_for_Claude__get_meeting_assets
 ---
 
@@ -47,32 +47,17 @@ Order topics by what moved most. Drop bot noise (deploy notices, CI, link unfurl
 
 ## 3. Report
 
-Write `<output folder>/digest-<since>-<today>.txt`, plain text, no markdown, in the language the user writes in:
+Write `<output folder>/digest-<since>-<today>.html`: bare HTML — `<meta charset="utf-8">`, `h1`, `h2`, `ul`, `li`, `a`, nothing else. No CSS, no scripts. Everything, headings included, in the language the user writes in.
 
-```
-digest <since> — <today>
+Sections in this order:
 
-waits for you
-<what is asked of the user and not answered: who, what, link>
+- **Waits for you** — each item starts with the verb the user has to do ("Reply to …", "Review …", "Publish …"), then who and why in a few words.
+- **Decided** — date, what, who.
+- **Topics** — one `h2` per topic; under it 1–3 items: where it stands now, what changed, what comes next.
+- **Meetings** — date, title, host, two lines of outcome or "summary not shared".
+- **Coming up** — date and time, meeting.
+- **Sources** — what was read, counts, failures.
 
-decided
-YYYY-MM-DD  <what was decided, by whom>  <links>
+Prose names things the way people say them: "the forecast import contract", not "AD#181". Keys, PR numbers and ids go into links only — the link text is a plain word (thread, PR, issue, doc, meeting) or a short phrase, never a bare URL or a code. A fact found in two places gets both links. One fact per item: an item that needs a semicolon is two items.
 
-topics
-<topic title> — <state now>
-  YYYY-MM-DD  <who>: <what changed>  <link>
-  …
-
-meetings
-YYYY-MM-DD  <title>, host <name>: <two lines of outcome or "summary not shared">  <link>
-
-coming up
-YYYY-MM-DD HH:MM  <meeting>
-
-sources
-<source: what was read, counts, failures>
-```
-
-Every line carries a date and a link. A fact found in two places is one line with both links.
-
-In chat: the file path, the "waits for you" lines, and the three topics that moved most.
+In chat: the file path, the "waits for you" items, and the three topics that moved most.
