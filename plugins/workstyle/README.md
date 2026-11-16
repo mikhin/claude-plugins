@@ -32,6 +32,7 @@ Skills for a senior frontend engineer who leads a project: how to decide, review
 | [`release-close`](skills/release-close) | Every issue of a release checked against its PRs, tails listed with an action each. |
 | [`pulse`](skills/pulse) | A teammate's activity day by day against their own pace, and a non-toxic way to ask. |
 | [`org-research`](skills/org-research) | One topic across every repo, Linear and Slack, as a dated, linked report. |
+| [`digest`](skills/digest) | The last week across Slack, Linear, GitHub, the calendar and Zoom, grouped by topic, with what waits for you on top. |
 | [`prune`](skills/prune) | Tidy git: merged branches, stray worktrees, fast-forward to the active release branch. |
 
 ## Small helpers
@@ -94,6 +95,7 @@ Pick a different set with `AUTOLOAD_SKILLS="a b"`.
 - `talk`: two hooks in `~/.claude/settings.json`. `UserPromptSubmit` prints a "reply in one or two spoken sentences" instruction while `~/.claude/voice-on` exists. `Stop` pipes `.last_assistant_message` from the hook input through `say` while that file exists.
 - `pin`: a shell function that reads `~/.claude/pins.tsv` (session id, directory, name), picks a line with `fzf`, then runs `cd <directory> && claude --resume <id>`.
 - `next`, `report`, `answer`, `release-close`, `pulse`, `org-research`: `gh`, the Slack and Linear MCP servers.
+- `digest`: the same, plus the Google Calendar and Zoom for Claude connectors from claude.ai.
 
 ## License
 
