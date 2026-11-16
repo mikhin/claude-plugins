@@ -1,7 +1,7 @@
 ---
 name: report
 description: Draft the user's project update for the client channel covering every working day since the last one, from GitHub, Slack and Linear activity. Draft only, never posts. Triggers — "/report", "write my update", "daily report", "report for the last days".
-allowed-tools: Bash(gh:*), Bash(date:*), Bash(cat:*), Skill, mcp__slack__conversations_search_messages, mcp__slack__conversations_replies, mcp__linear__list_issues
+allowed-tools: Bash(gh:*), Bash(date:*), Bash(cat:*), Bash(find:*), Bash(xargs:*), Bash(jq:*), Skill, mcp__slack__conversations_search_messages, mcp__slack__conversations_replies, mcp__linear__list_issues
 ---
 
 The org, the user's GitHub login, the report channel, the user's Slack id, the time zone and what to leave out come from `~/.claude/workstyle-context.md`. A value missing there → ask once and add it.
@@ -34,6 +34,13 @@ Linear, `list_issues`:
 - `creator: "me"`, `createdAt: SINCE`, same fields.
 
 Slack: the user's messages since `SINCE` in the project's channels, `filter_users_from: "<user's Slack id>"`. These show the calls, decisions, reviews and onboarding that leave no PR or ticket. Read a thread with `conversations_replies` only when the message alone does not say what was decided.
+
+Sessions: the user's prompts to Claude Code and Codex since `SINCE`, in sessions started in the project's local clones. They show the investigations, release checks and research that leave no PR, ticket or message. `RE` is a regex of the clone paths from the context, e.g. `^/Users/me/Code/(proj-a|proj-b)`. Timestamps are UTC.
+```
+find ~/.claude/projects -name '*.jsonl' -newermt SINCE -print0 | xargs -0 jq -r --arg s SINCE --arg re "RE" 'select(.type=="user" and .isSidechain!=true and (.message.content|type)=="string" and .timestamp>=$s and ((.cwd//"")|test($re)) and (.message.content|test("^(<|Stop hook feedback)")|not)) | "\(.timestamp[0:16]) claude \(.message.content[0:160]|gsub("\\s+";" "))"' 2>/dev/null | sort
+find ~/.codex/sessions -name '*.jsonl' -newermt SINCE -print0 | xargs -0 -n1 jq -rn --arg s SINCE --arg re "RE" '[inputs] | select((.[0].payload.cwd//"")|test($re)) | .[] | select(.payload.item.type=="UserMessage" and .timestamp>=$s) | "\(.timestamp[0:16]) codex \(.payload.item.content[0].text[0:160]|gsub("\\s+";" "))"' 2>/dev/null | sort
+```
+A topic already covered by a PR, issue or message adds nothing. A topic only the sessions show is one item on its day.
 
 ## 3. Draft
 
