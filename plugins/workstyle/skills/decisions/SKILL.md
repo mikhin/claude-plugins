@@ -1,6 +1,7 @@
 ---
 name: decisions
 description: How to make decisions with the user — the questions to answer before proposing a change, where to look answers up, and what to reject on sight. Meant to be always on (SessionStart hook), not trigger-loaded.
+disable-model-invocation: true
 ---
 
 # How to decide

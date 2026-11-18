@@ -1,6 +1,7 @@
 ---
 name: effort-advisor
 description: Recommend an effort level (low, medium, high, max) for a coding task in one or two lines before starting it. Triggers when the user describes a coding task to do — a feature, a bug, a refactor, a review — or asks "what effort", "which effort level".
+disable-model-invocation: true
 ---
 
 # Effort advisor

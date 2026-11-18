@@ -1,6 +1,7 @@
 ---
 name: overbuild
 description: Review a diff for code that handles cases no user reaches or builds layers nobody needs — guards, queues, refs, counters, outputs nothing reads. Run on the branch diff as part of every review, and on every review round. Triggers — "overbuild", "/overbuild", "is this overbuilt", "what in this diff is extra".
+disable-model-invocation: true
 ---
 
 # Overbuild

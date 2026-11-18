@@ -1,6 +1,7 @@
 ---
 name: contract-impact
 description: Show how an API contract change and the frontend affect each other — what a contract PR or spec change forces in the frontend, or what a UI or design needs that the contract lacks. Triggers — "/contract-impact", "does the frontend need changes", "is the contract ready for this UI", "does the spec match this", "do we need to change the contract".
+disable-model-invocation: true
 ---
 
 The repos, their clones and how the client is generated come from `~/.claude/workstyle-context.md`. A value missing there → ask once and add it.

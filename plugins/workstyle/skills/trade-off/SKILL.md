@@ -1,6 +1,7 @@
 ---
 name: trade-off
 description: A hard client date and work that does not fit — find what the client needs on that date, the cheapest path to it (hardcode, manual step, cut scope) with its debt written down, and draft the proposal to the team. Client business before code purity. Triggers — "/trade-off", "we won't make it", "what can we cut", "the deadline is burning", "propose an alternative", "can we hardcode it", "the client matters more than the code".
+disable-model-invocation: true
 ---
 
 The principle: the client's business on that date matters more than clean code. Debt is fine when it is written down and its cleanup is planned.

@@ -1,6 +1,7 @@
 ---
 name: stack
 description: How work gets verified — the frontend checking stack expected on every change, how layout is reviewed across viewports, and what matters on a product the user runs. Meant to be always on (SessionStart hook), not trigger-loaded.
+disable-model-invocation: true
 ---
 
 # How work gets checked
