@@ -1,7 +1,7 @@
 ---
 name: org-research
 description: Research one topic across the whole project — every repo of the GitHub org (code on every branch, issues, PRs, review threads), all of Linear (issues, comments, documents, projects) and the project's Slack channels and DMs — and write a dated, linked txt report to the Desktop. Read-only. Triggers — "/org-research <topic>", "research <topic> across the project", "dig up everything about", "what did we have on", "where was this decided".
-allowed-tools: Agent, Bash(gh:*), Bash(git:*), Bash(curl:*), Bash(cat:*), Write, mcp__slack__conversations_search_messages, mcp__slack__conversations_replies, mcp__linear__list_issues, mcp__linear__get_issue, mcp__linear__list_comments, mcp__linear__list_documents, mcp__linear__get_document, mcp__linear__list_projects, mcp__linear__get_project, mcp__linear__get_status_updates
+allowed-tools: Agent, Bash(gh:*), Bash(git:*), Bash(cat:*), Write, mcp__slack__conversations_search_messages, mcp__slack__conversations_replies, mcp__linear__list_issues, mcp__linear__get_issue, mcp__linear__list_comments, mcp__linear__list_documents, mcp__linear__get_document, mcp__linear__list_projects, mcp__linear__get_project, mcp__linear__get_status_updates
 ---
 
 Read-only everywhere: no comments, reactions, status changes, pushes. `git fetch` is the only write, and it touches local refs only.
@@ -25,11 +25,9 @@ One `general-purpose` agent per source, in one message. Each gets the terms and 
 - When something appeared or vanished: `git -C <clone> log --all -S "<term>" --format='%h %ad %an %s' --date=short`, and commit messages: `git -C <clone> log --all -i --grep="<term>" --format='%h %ad %an %s' --date=short`.
 - Repos with no clone: `gh search code --owner=<org> "<term>"`.
 
-**Linear**
+**Linear** — the Linear MCP only. No API key and no secret manager call: a key read per request can prompt the user for each one.
 - Titles and descriptions: `list_issues` with `query`, `includeArchived: true`, `limit: 250`.
-- Comments — the MCP does not search them. GraphQL does:
-  `curl -s https://api.linear.app/graphql -H "Authorization: ${LINEAR_API_KEY:-$(eval "$LINEAR_KEY_COMMAND")}" -H 'Content-Type: application/json' -d '{"query":"{ searchIssues(term:\"<term>\", includeComments:true, first:100){ nodes{ identifier title url } } }"}'`
-- Every hit: `get_issue` with `relations`, `attachments`, `documents`, `stateHistory`, then `list_comments` with `issueId`.
+- Every hit and every issue key the other sources name: `get_issue` with `relations`, `attachments`, `documents`, `stateHistory`, then `list_comments` with `issueId`. The MCP does not search comments, so a comment is found through its issue — follow relations and parents one level out.
 - Documents: `list_documents` with `query`, `includeArchived: true`, then `get_document`.
 - Projects: `list_projects`, then `get_project` and `get_status_updates` for the ones that touch the topic; `list_comments` with `projectId`.
 

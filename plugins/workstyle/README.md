@@ -82,7 +82,7 @@ The project skills hold no project names. They read your values from `~/.claude/
 - Report leaves out:
 ```
 
-Secrets stay out of it. `org-research` reads `LINEAR_API_KEY`, or runs `LINEAR_KEY_COMMAND`. The command can be a secret manager read, for example `op read 'op://<vault>/<item>/credential'`.
+Secrets stay out of it. Linear is read through the Linear MCP, so no skill needs a Linear API key.
 
 ## Always-on skills
 
